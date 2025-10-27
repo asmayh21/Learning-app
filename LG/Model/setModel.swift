@@ -1,16 +1,15 @@
 //
-//  setModel.swift
-//  LG
+//  DurationType.swift
+//  Created by Asma on 04/05/1447 AH.
 //
-//  Created by asma  on 04/05/1447 AH.
-//
-
-// DurationType.swift (يُوضع داخل مجلد Model)
 
 import Foundation
 
+/// نوع المدة التي يحددها المستخدم لهدف التعلم
 enum DurationType: String, CaseIterable {
     case week = "Week"
     case month = "Month"
     case year = "Year"
 }
+
+

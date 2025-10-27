@@ -1,13 +1,15 @@
 import SwiftUI
 
 struct ActivityView: View {
-    
     // --- 1. يستقبل البيانات من ContentView ---
     @StateObject private var viewModel: ActivityViewModel
     @Environment(\.colorScheme) var colorScheme
     
     // عرض يدوي لصفحة "Well done"
     @State private var forceShowDone = false
+    
+    // ✅ حالة جديدة للضغط على زر الفريز
+    @State private var isFreezePressed = false
     
     let startDate = Calendar.current.date(from: DateComponents(
         year: Calendar.current.component(.year, from: Date()),
@@ -43,6 +45,7 @@ struct ActivityView: View {
                         .foregroundStyle(.white)
                         .padding(10)
                         .background(.ultraThinMaterial)
+                        .glassEffect(.clear)
                         .clipShape(Circle())
                 }
                 
@@ -53,8 +56,10 @@ struct ActivityView: View {
                     Image(systemName: "pencil.and.outline")
                         .font(.system(size: 24, weight: .semibold))
                         .foregroundStyle(.white)
+                       
                         .padding(10)
                         .background(.ultraThinMaterial)
+                        .glassEffect(.clear)
                         .clipShape(Circle())
                 }
             }
@@ -71,6 +76,7 @@ struct ActivityView: View {
                         Image(systemName: "chevron.right")
                             .font(.system(size: 12, weight: .bold))
                             .foregroundStyle(.orange)
+                            .glassEffect(.clear)
                             .padding(.leading, 4)
                     }
                     
@@ -103,10 +109,7 @@ struct ActivityView: View {
                             else if status == .freezed { return viewModel.freezedCalendarColor }
                             else if isSelected { return viewModel.defaultCalendarColor }
                             else { return Color(.secondarySystemBackground).opacity(0.3) }
-                            
                         }()
-                        
-                        
                         
                         VStack(spacing: 6) {
                             Text(day, format: .dateTime.weekday(.narrow))
@@ -116,6 +119,7 @@ struct ActivityView: View {
                             Text(day, format: .dateTime.day())
                                 .font(.headline.weight(.semibold))
                                 .frame(width: 44, height: 44)
+                                
                                 .background(
                                     Circle()
                                         .fill(circleFillColor)
@@ -138,6 +142,7 @@ struct ActivityView: View {
                 Text(viewModel.learningTopic)
                     .font(.system(size: 16, weight: .semibold))
                     .frame(maxWidth: .infinity, alignment: .leading)
+                    
                     .foregroundColor(.white)
                 
                 // MARK: - Stats
@@ -150,8 +155,11 @@ struct ActivityView: View {
                         }.foregroundColor(.white)
                     }
                     .frame(width: 160, height: 69)
+                    
                     .background(viewModel.learnedColor.opacity(0.5))
+                    
                     .clipShape(Capsule())
+                    .glassEffect(.clear)
                     
                     HStack(spacing: 8) {
                         Image(systemName: "cube.fill").foregroundColor(.cyan)
@@ -160,7 +168,9 @@ struct ActivityView: View {
                             Text(viewModel.freezeCount == 1 ? "Day Freezed" : "Days Freezed").font(.caption)
                         }.foregroundColor(.white)
                     }
+                    
                     .frame(width: 160, height: 69)
+                    .glassEffect(.clear)
                     .background(viewModel.freezedColor.opacity(0.5))
                     .clipShape(Capsule())
                 }
@@ -170,7 +180,7 @@ struct ActivityView: View {
             
             Spacer().frame(height: 20)
             
-            // MARK: - Main Circle
+            // MARK: - Main Circle + Buttons
             Group {
                 if forceShowDone || viewModel.isGoalCompleted {
                     VStack(spacing: 20) {
@@ -201,18 +211,14 @@ struct ActivityView: View {
                                 .overlay(
                                     Capsule()
                                         .stroke(Color.orange.opacity(0.6), lineWidth: 1)
+                                       
                                 )
                         }
                         
                         Button(action: { viewModel.resetSameGoal() }) {
                             Text("Set same learning goal and duration")
                                 .font(.headline)
-                                .frame(width: 274, height: 48)
                                 .foregroundColor(.orange)
-                                .background(
-                                    Capsule()
-                                        .stroke(Color.orange.opacity(0.6), lineWidth: 1)
-                                )
                         }
                     }
                     .transition(.opacity)
@@ -234,14 +240,26 @@ struct ActivityView: View {
                                         )
                                         .shadow(color: viewModel.mainCircleColor.opacity(0.7),
                                                 radius: 10, x: 0, y: 5)
+                                        
                                 )
                                 .foregroundColor(.white)
+                                .glassEffect(.clear)
                         }
                         
-                        Button(action: { viewModel.toggleDayStatus(.freezed) }) {
+                        Button {
+                            isFreezePressed.toggle()
+                            viewModel.toggleDayStatus(.freezed)
+                        } label: {
                             Text("Freeze Current day")
                                 .frame(width: 274, height: 48)
-                                .background(viewModel.selectedDayStatus == .freezed ? viewModel.freezedColor : Color("gg"))
+                                .glassEffect(.clear)
+                                .background(
+                                    isFreezePressed ?
+                                    Color("FreezePressed") : // 👈 من الـ Assets
+                                    (viewModel.selectedDayStatus == .freezed ?
+                                     viewModel.freezedColor :
+                                     Color("gg"))
+                                )
                                 .font(.headline.bold())
                                 .cornerRadius(28)
                                 .foregroundColor(.white)
@@ -273,7 +291,6 @@ struct ActivityView: View {
                         ForEach(1...12, id: \.self) { month in
                             Text(viewModel.months[month - 1]).tag(month)
                                 .foregroundColor(.white)
-                            
                         }
                     }
                     .pickerStyle(.wheel)

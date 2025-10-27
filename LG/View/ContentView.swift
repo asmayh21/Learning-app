@@ -75,7 +75,7 @@ struct ContentView: View {
                                         .frame(width: 97, height: 48)
                                         .glassEffect(viewModel.selectedPeriod == period ? .clear : .clear)
                                         .background(viewModel.selectedPeriod == period ? Color("Color").opacity(0.5) : Color.clear)
-                                        .cornerRadius(10)
+                                        .cornerRadius(30)
                                         .overlay(
                                             RoundedRectangle(cornerRadius: 10)
                                                 .stroke(Color.white.opacity(0.1), lineWidth: 1)
