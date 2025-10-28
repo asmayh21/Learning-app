@@ -89,7 +89,6 @@ class ActivityViewModel: ObservableObject {
             return
         }
         currentWeekStart = cal.startOfWeek(for: newWeekStart)
-        // ✅ لا نغير selectedDate هنا حتى تبقى الدائرة في مكانها
     }
     
     func moveToCurrentWeek() {
@@ -176,7 +175,6 @@ class ActivityViewModel: ObservableObject {
             }
         }
         
-        // تحديث الحالة في الكالندر الكبير
         calendarViewModel?.updateDayStatus(for: selectedDate, status: status)
         
         if learnedStreak >= goalDays {
@@ -198,6 +196,6 @@ class ActivityViewModel: ObservableObject {
         self.selectedDate = Date()
         self.goalDays = period.days
 
-        print("🎯 تم إعادة تعيين الهدف إلى: \(topic) لمدة \(period.days) يوم")
+        print(" تم إعادة تعيين الهدف إلى: \(topic) لمدة \(period.days) يوم")
     }
 }

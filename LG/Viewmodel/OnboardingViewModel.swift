@@ -12,7 +12,6 @@ final class OnboardingViewModel: ObservableObject {
     func startLearning() {
         // let session = LearningSession(topic: topic, period: selectedPeriod)
         print("User wants to learn \(topic) in \(selectedPeriod.rawValue)")
-        // أو تخزين بيانات الجلسة لاستخدامها في شاشة أخرى
     }
 }
 

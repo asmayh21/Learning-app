@@ -7,8 +7,6 @@
 
 import Foundation
 
-// (Model)
-// هذا الـ enum يمثل هيكل البيانات الأساسي لحالة اليوم
 
 enum DayStatus {
     case none

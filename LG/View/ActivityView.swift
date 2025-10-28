@@ -1,14 +1,11 @@
 import SwiftUI
 
 struct ActivityView: View {
-    // --- 1. يستقبل البيانات من ContentView ---
     @StateObject private var viewModel: ActivityViewModel
     @Environment(\.colorScheme) var colorScheme
-    
-    // عرض يدوي لصفحة "Well done"
+    //اذا ابي اوري المنتور صفحه الدن
     @State private var forceShowDone = false
     
-    // ✅ حالة جديدة للضغط على زر الفريز
     @State private var isFreezePressed = false
     
     let startDate = Calendar.current.date(from: DateComponents(

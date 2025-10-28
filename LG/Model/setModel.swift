@@ -5,7 +5,6 @@
 
 import Foundation
 
-/// نوع المدة التي يحددها المستخدم لهدف التعلم
 enum DurationType: String, CaseIterable {
     case week = "Week"
     case month = "Month"

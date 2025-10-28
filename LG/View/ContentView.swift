@@ -74,7 +74,7 @@ struct ContentView: View {
                                     Text(period.rawValue)
                                         .frame(width: 97, height: 48)
                                         .glassEffect(viewModel.selectedPeriod == period ? .clear : .clear)
-                                        .background(viewModel.selectedPeriod == period ? Color("Color").opacity(0.5) : Color.clear)
+                                        .background(viewModel.selectedPeriod == period ? Color("Color1").opacity(0.5) : Color.clear)
                                         .cornerRadius(30)
                                         .overlay(
                                             RoundedRectangle(cornerRadius: 10)
@@ -95,8 +95,8 @@ struct ContentView: View {
                     } label: {
                         Text("Start learning")
                             .frame(width: 200, height: 50)
-                            .glassEffect(.clear.tint(Color("Color")))
-                            .background(Color("Color"))
+                            .glassEffect(.clear)
+                            .background(Color("Color1"))
                             .font(.headline.bold())
                             .cornerRadius(28)
                             .foregroundColor(.white)

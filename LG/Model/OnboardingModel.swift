@@ -5,8 +5,6 @@ enum LearningPeriod: String, CaseIterable {
     case month = "Month"
     case year = "Year"
     
-    // --- (هذا هو الكود المضاف) ---
-    // دالة مساعدة لتحويل المدة إلى عدد أيام
     var days: Int {
         switch self {
         case .week:
@@ -17,7 +15,6 @@ enum LearningPeriod: String, CaseIterable {
             return 365
         }
     }
-    // --- (نهاية الإضافة) ---
 }
 
 struct LearningSession {
